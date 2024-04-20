@@ -19,7 +19,10 @@ const projection = d3.geoMercator()
 
 // Data and color scale
 let data = new Map()
-const colorScale = d3.scaleQuantize([0, 50], d3.schemeBlues[9]);
+
+const colorScale = d3.scaleThreshold()
+.domain([1, 2, 5, 10, 50, 100, 300, 500])
+.range(d3.schemeBlues[9]);
 
 // Load external data and bootcod_disbar
 Promise.all([
@@ -28,7 +31,7 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
   let topo = loadData[0]
   let centros = loadData[1]
   let count = d3.rollup(centros, v => v.length, d => d.cod_municipio)
-
+  console.log(count)
   svg2.append("g")
     .selectAll("path")
     .data(topo.features)
@@ -37,7 +40,7 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
       .projection(projection)
     )
     .attr("fill", function (d) {
-      d.total = count.get(d.properties.NATCODE.slice(-5)) || 5;
+      d.total = count.get(d.properties.NATCODE.slice(-5)) || 0;
       return colorScale(d.total);
     })
 })

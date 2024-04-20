@@ -1,72 +1,46 @@
-var choropleth = d3.select("#choropleth"),
-width = +choropleth.attr("width"),
-height = +choropleth.attr("height");
+// set the dimensions and margins of the graph
+const margin2 = {top: 10, right: 10, bottom: 10, left: 10},
+    width2 = 860 - margin2.left - margin2.right,
+    height2 = 400 - margin2.top - margin2.bottom;
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+// append the svg object to the body of the page
+const svg2 = d3.select("#choropleth")
+  .append("svg")
+    .attr("width", width2 + margin2.left + margin2.right)
+    .attr("height", height2 + margin2.top + margin2.bottom)
+  .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
-var simulation = d3.forceSimulation()
-.force("link", d3.forceLink().id(function(d) { return d.id; }))
-.force("charge", d3.forceManyBody())
-.force("center", d3.forceCenter(width / 2, height / 2));
+// Map and projection
+const path = d3.geoPath();
+const projection = d3.geoMercator()
+  .scale(100)
+  .center([0,20])
+  .translate([width2 / 2, height2 / 2]);
 
-d3.json("miserables.json", function(error, graph) {
-if (error) throw error;
+// Data and color scale
+let data = new Map()
+const colorScale = d3.scaleThreshold()
+  .domain([10, 100, 1000, 3000, 10000, 50000])
+  .range(d3.schemeBlues[7]);
 
-var link = choropleth.append("g")
-  .attr("class", "links")
-.selectAll("line")
-.data(graph.links)
-.enter().append("line")
-  .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+// Load external data and bootcod_disbar
+Promise.all([
+d3.json("distritos.geojson"),
+d3.csv("tiques_20240304.csv")]).then(function(loadData){
+  let topo = loadData[0]
+  let tiques = loadData[1]
+  let count = d3.rollup(tiques, v => v.length, d => d.cod_distrito)
 
-var node = choropleth.append("g")
-  .attr("class", "nodes")
-.selectAll("circle")
-.data(graph.nodes)
-.enter().append("circle")
-  .attr("r", 5)
-  .attr("fill", function(d) { return color(d.group); })
-  .call(d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended));
-
-node.append("title")
-  .text(function(d) { return d.id; });
-
-simulation
-  .nodes(graph.nodes)
-  .on("tick", ticked);
-
-simulation.force("link")
-  .links(graph.links);
-
-function ticked() {
-link
-    .attr("x1", function(d) { return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
-
-node
-    .attr("cx", function(d) { return d.x; })
-    .attr("cy", function(d) { return d.y; });
-}
-});
-
-function dragstarted(d) {
-if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-d.fx = d.x;
-d.fy = d.y;
-}
-
-function dragged(d) {
-d.fx = d3.event.x;
-d.fy = d3.event.y;
-}
-
-function dragended(d) {
-if (!d3.event.active) simulation.alphaTarget(0);
-d.fx = null;
-d.fy = null;
-}
+  svg2.append("g")
+    .selectAll("path")
+    .data(topo.features)
+    .join("path")
+    .attr("d", d3.geoPath()
+      .projection(projection)
+    )
+    .attr("fill", function (d) {
+      d.total = count.get(d.COD_DIS_TX) || 0;
+      return colorScale(d.total);
+    })
+})

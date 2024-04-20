@@ -52,8 +52,8 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
     d3.select(this)
       .transition()
       .duration(200)
-      .style("stroke", "transparent")
-
+      .style("stroke", "none")
+  }
 
   svg2.append("g")
     .selectAll("path")
@@ -66,17 +66,16 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
       d.total = count.get(d.properties.NATCODE.slice(-5)) || 0;
       return colorScale(d.total);
     })
-    .style("stroke", "transparent")
-    .attr("class", function(d) { return "municipio"})
-    .style("opacity", .9)
+    .style("stroke", "none")
+    .attr("class", function(d) { return "municipio" } )
+    .style("opacity", .8)
     .on("mouseover", mouseOver)
     .on("mouseleave", mouseLeave)
+
 
   // Color legend
   let legend = d3.legendColor()
   .scale(colorScale)
-  .labelFormat(d3.format(".0f"))
-  .labelDelimiter("-")
   .labels(["Ninguno","1","2-4","5-9","10-49","50-99","100-299","300-499",">500"])
 
   svg2.append("g")

@@ -31,7 +31,30 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
   let topo = loadData[0]
   let centros = loadData[1]
   let count = d3.rollup(centros, v => v.length, d => d.cod_municipio)
-  console.log(count)
+  
+  let mouseOver = function(d) {
+    d3.selectAll(".municipio")
+      .transition()
+      .duration(200)
+      .style("opacity", .5)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", 1)
+      .style("stroke", "black")
+  }
+
+  let mouseLeave = function(d) {
+    d3.selectAll(".municipio")
+      .transition()
+      .duration(200)
+      .style("opacity", .8)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("stroke", "transparent")
+
+
   svg2.append("g")
     .selectAll("path")
     .data(topo.features)
@@ -43,6 +66,11 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
       d.total = count.get(d.properties.NATCODE.slice(-5)) || 0;
       return colorScale(d.total);
     })
+    .style("stroke", "transparent")
+    .attr("class", function(d) { return "municipio"})
+    .style("opacity", .9)
+    .on("mouseover", mouseOver)
+    .on("mouseleave", mouseLeave)
 
   // Color legend
   let legend = d3.legendColor()

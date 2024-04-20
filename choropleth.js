@@ -14,7 +14,7 @@ const svg2 = d3.select("#choropleth")
 const path = d3.geoPath();
 const projection = d3.geoMercator()
   .scale(6000)
-  .center([-5,37.5])
+  .center([-4.5,37.5])
   .translate([width / 2, height / 2]);
 
 // Data and color scale
@@ -43,4 +43,15 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
       d.total = count.get(d.properties.NATCODE.slice(-5)) || 0;
       return colorScale(d.total);
     })
+
+  // Color legend
+  let legend = d3.legendColor()
+  .scale(colorScale)
+  .labelFormat(d3.format(".0f"))
+  .labelDelimiter("-")
+  .labels(["Ninguno","1","2-4","5-9","10-49","50-99","100-299","300-499",">500"])
+
+  svg2.append("g")
+    .attr("transform", "translate(720,10)")
+    .call(legend)
 })

@@ -11,3 +11,13 @@ body {
     font-size: 1em;
     line-height: 1.5em;
   }
+
+  .tooltip {
+    position: relative;
+    z-index:5000;
+    left:375px;
+    top:-70px;
+    padding:5px;
+    width:250px;
+    font-size:.9em
+  }

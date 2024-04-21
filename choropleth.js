@@ -24,6 +24,10 @@ const colorScale = d3.scaleThreshold()
 .domain([1, 2, 5, 10, 50, 100, 300, 500])
 .range(d3.schemeBlues[9]);
 
+let tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+
 // Load external data and bootcod_disbar
 Promise.all([
 d3.json("municipios.geojson"),
@@ -32,29 +36,6 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
   let centros = loadData[1]
   let count = d3.rollup(centros, v => v.length, d => d.cod_municipio)
   
-  let mouseOver = function(d) {
-    d3.selectAll(".municipio")
-      .transition()
-      .duration(200)
-      .style("opacity", .5)
-    d3.select(this)
-      .transition()
-      .duration(200)
-      .style("opacity", 1)
-      .style("stroke", "black")
-  }
-
-  let mouseLeave = function(d) {
-    d3.selectAll(".municipio")
-      .transition()
-      .duration(200)
-      .style("opacity", .8)
-    d3.select(this)
-      .transition()
-      .duration(200)
-      .style("stroke", "none")
-  }
-
   svg2.append("g")
     .selectAll("path")
     .data(topo.features)
@@ -69,8 +50,36 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
     .style("stroke", "none")
     .attr("class", function(d) { return "municipio" } )
     .style("opacity", .8)
-    .on("mouseover", mouseOver)
-    .on("mouseleave", mouseLeave)
+    .on("mouseover", function(d) {
+      d3.selectAll(".municipio")
+      .transition()
+      .duration(200)
+      .style("opacity", .5)
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .style("opacity", 1)
+        .style("stroke", "black")
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", .9)
+      tooltip.html(
+        d.explicitOriginalTarget.__data__.properties.NAMEUNIT
+      )
+    })
+    .on("mouseleave", function(d) {
+      d3.selectAll(".municipio")
+      .transition()
+      .duration(200)
+      .style("opacity", .8)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("stroke", "none")
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", 0)
+    })
 
 
   // Color legend

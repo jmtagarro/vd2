@@ -14,15 +14,20 @@
     <h1>Visualización de datos - PEC 2</h1>
     <hr/>
     <h2>Histogram</h2>
+    <p>Distribución de la duración de los tiques del Servicio de Estacionamiento Regulado de Madrid el día 4 de marzo de 2024.</p>
     <div id="histogram"></div>
-    Número de cestas: 
+    <span>Número de cestas: </span>
     <input type="range" min="1" max="40" value="20" class="slider" id="nBin" oninput="this.nextElementSibling.value = this.value" autocomplete="off">
     <output>20</output>
     <script src="histogram.js"></script>
-    
+    <p class="source">Fuente: <a href="https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=67663c0a55e16710VgnVCM1000001d4a900aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default">Datos Abiertos del Ayuntamiento de Madrid</a></p>
     <h2>Choropleth Map</h2>
+    <p>Número de centros educativos no universitarios por municipio andaluz.</p>
     <div id="choropleth"></div>
     <script src="choropleth.js"></script>
-    <h2>Merimekko</h2>
+    <p class="source">Fuente: <a href="https://www.juntadeandalucia.es/datosabiertos/portal/dataset/directorio-de-centros-docentes-de-andalucia">Directorio de Centros Docentes de Andalucia</a> e <a href="https://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE">Instituto Geográfico Nacional</a></p>
+    <h2>Marimekko</h2>
+    <div id="marimekko"></div>
+    <script src="marimekko.js"></script>
 </body>
 </html>

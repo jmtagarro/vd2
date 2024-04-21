@@ -19,6 +19,7 @@ body {
     padding:5px;
     font-size:.7em;
     z-index:5000;
+    opacity:0;
   }
 
   #nBin {

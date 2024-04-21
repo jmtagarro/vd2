@@ -1,0 +1,137 @@
+[
+  {
+    "Provincia": "Ávila",
+    "Tipo": "Industrial",
+    "Consumo": 13742831
+  },
+  {
+    "Provincia": "Ávila",
+    "Tipo": "Residencial",
+    "Consumo": 16057122
+  },
+  {
+    "Provincia": "Ávila",
+    "Tipo": "Servicios",
+    "Consumo": 15310861
+  },
+  {
+    "Provincia": "Burgos",
+    "Tipo": "Industrial",
+    "Consumo": 106395233
+  },
+  {
+    "Provincia": "Burgos",
+    "Tipo": "Residencial",
+    "Consumo": 30715403
+  },
+  {
+    "Provincia": "Burgos",
+    "Tipo": "Servicios",
+    "Consumo": 50081526
+  },
+  {
+    "Provincia": "León",
+    "Tipo": "Industrial",
+    "Consumo": 67095036
+  },
+  {
+    "Provincia": "León",
+    "Tipo": "Residencial",
+    "Consumo": 42839599
+  },
+  {
+    "Provincia": "León",
+    "Tipo": "Servicios",
+    "Consumo": 49145403
+  },
+  {
+    "Provincia": "Palencia",
+    "Tipo": "Industrial",
+    "Consumo": 48896737
+  },
+  {
+    "Provincia": "Palencia",
+    "Tipo": "Residencial",
+    "Consumo": 14465583
+  },
+  {
+    "Provincia": "Palencia",
+    "Tipo": "Servicios",
+    "Consumo": 16734705
+  },
+  {
+    "Provincia": "Salamanca",
+    "Tipo": "Industrial",
+    "Consumo": 28374429
+  },
+  {
+    "Provincia": "Salamanca",
+    "Tipo": "Residencial",
+    "Consumo": 30574444
+  },
+  {
+    "Provincia": "Salamanca",
+    "Tipo": "Servicios",
+    "Consumo": 44019633
+  },
+  {
+    "Provincia": "Segovia",
+    "Tipo": "Industrial",
+    "Consumo": 36394760
+  },
+  {
+    "Provincia": "Segovia",
+    "Tipo": "Residencial",
+    "Consumo": 17639343
+  },
+  {
+    "Provincia": "Segovia",
+    "Tipo": "Servicios",
+    "Consumo": 20884038
+  },
+  {
+    "Provincia": "Soria",
+    "Tipo": "Industrial",
+    "Consumo": 27260939
+  },
+  {
+    "Provincia": "Soria",
+    "Tipo": "Residencial",
+    "Consumo": 9166830
+  },
+  {
+    "Provincia": "Soria",
+    "Tipo": "Servicios",
+    "Consumo": 17512956
+  },
+  {
+    "Provincia": "Valladolid",
+    "Tipo": "Industrial",
+    "Consumo": 91729099
+  },
+  {
+    "Provincia": "Valladolid",
+    "Tipo": "Residencial",
+    "Consumo": 41949464
+  },
+  {
+    "Provincia": "Valladolid",
+    "Tipo": "Servicios",
+    "Consumo": 63050261
+  },
+  {
+    "Provincia": "Zamora",
+    "Tipo": "Industrial",
+    "Consumo": 18754108
+  },
+  {
+    "Provincia": "Zamora",
+    "Tipo": "Residencial",
+    "Consumo": 16130660
+  },
+  {
+    "Provincia": "Zamora",
+    "Tipo": "Servicios",
+    "Consumo": 18351843
+  }
+]

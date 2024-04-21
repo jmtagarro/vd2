@@ -63,11 +63,13 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
         .style("stroke", "black")
       tooltip.transition()
         .duration(200)
-        .style("opacity", .9)
+        .style("opacity", 1)
       tooltip.html(
         d.explicitOriginalTarget.__data__.properties.NAMEUNIT
-        + ": " + count.get(d.explicitOriginalTarget.__data__.properties.NATCODE.slice(-5))
-      )
+        + ": " + (count.get(d.explicitOriginalTarget.__data__.properties.NATCODE.slice(-5)) ?? 0))
+          .style("left", (event.pageX + 20) + "px")
+          .style("top", (event.pageY - 30) + "px")
+      
     })
     .on("mouseleave", function(d) {
       d3.selectAll(".municipio")

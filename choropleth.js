@@ -35,7 +35,7 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
   let topo = loadData[0]
   let centros = loadData[1]
   let count = d3.rollup(centros, v => v.length, d => d.cod_municipio)
-  
+
   svg2.append("g")
     .selectAll("path")
     .data(topo.features)
@@ -45,6 +45,7 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
     )
     .attr("fill", function (d) {
       d.total = count.get(d.properties.NATCODE.slice(-5)) || 0;
+      current_count = d.total
       return colorScale(d.total);
     })
     .style("stroke", "none")
@@ -65,6 +66,7 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
         .style("opacity", .9)
       tooltip.html(
         d.explicitOriginalTarget.__data__.properties.NAMEUNIT
+        + ": " + count.get(d.explicitOriginalTarget.__data__.properties.NATCODE.slice(-5))
       )
     })
     .on("mouseleave", function(d) {

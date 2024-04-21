@@ -23,31 +23,49 @@ d3.csv("tiques_20240304.csv").then( function(data) {
       .attr("transform", `translate(0, ${height})`)
       .call(d3.axisBottom(x));
 
+  // Y axis: initialization
+  const y = d3.scaleLinear()
+      .range([height, 0]);
+  const yAxis = svg.append("g")
+
+function update(nBin) {
+
   // set the parameters for the histogram
   const histogram = d3.histogram()
       .value(function(d) { return d.minutos_tique; })   // I need to give the vector of value
       .domain(x.domain())  // then the domain of the graphic
-      .thresholds(x.ticks(70)); // then the numbers of bins
+      .thresholds(x.ticks(nBin)); // then the numbers of bins
 
   // And apply this function to data to get the bins
   const bins = histogram(data);
 
-  // Y axis: scale and draw:
-  const y = d3.scaleLinear()
-      .range([height, 0]);
-      y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
-  svg.append("g")
+  // Y axis: update now that we know the domain
+  y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
+  yAxis
+      .transition()
+      .duration(1000)
       .call(d3.axisLeft(y));
 
   // append the bar rectangles to the svg element
   svg.selectAll("rect")
     .data(bins)
     .join("rect")
+    .transition()
+    .duration(1000)
       .attr("x", 1)
-    .attr("transform", function(d) { return `translate(${x(d.x0)}, ${y(d.length)})`})
-        .attr("width", function(d) { return x(d.x1) - x(d.x0) -1})
-        .attr("height", function(d) { return height - y(d.length); })
-        .style("fill", "#69b3a2")
+      .attr("transform", function(d) { return `translate(${x(d.x0)}, ${y(d.length)})`})
+      .attr("width", function(d) { return x(d.x1) - x(d.x0) -1})
+      .attr("height", function(d) { return height - y(d.length); })
+      .style("fill", "#69b3a2")
+
+}
+
+  update(20)
+
+  // Listen to the button -> update if user change it
+  d3.select("#nBin").on("input", function() {
+    update(+this.value);
+  });
 
   // Add Y axis label
   svg.append("text")

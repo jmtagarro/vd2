@@ -20,3 +20,9 @@ body {
     font-size:.7em;
     z-index:5000;
   }
+
+  #nBin {
+    position:absolute;
+    margin-top:2px;
+    margin-left: 30px;
+  }

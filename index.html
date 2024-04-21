@@ -15,7 +15,11 @@
     <hr/>
     <h2>Histogram</h2>
     <div id="histogram"></div>
+    Número de cestas: 
+    <input type="range" min="1" max="40" value="20" class="slider" id="nBin" oninput="this.nextElementSibling.value = this.value" autocomplete="off">
+    <output>20</output>
     <script src="histogram.js"></script>
+    
     <h2>Choropleth Map</h2>
     <div id="choropleth"></div>
     <script src="choropleth.js"></script>

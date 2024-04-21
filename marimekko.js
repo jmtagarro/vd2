@@ -59,7 +59,7 @@ column.append("text")
     .attr("x", 3)
     .attr("y", "-0.5em")
     .attr("fill-opacity", 0.7)
-    .text(d => format(d.value));
+    .text(d => format(Math.trunc(d.value/1000)));
 
 column.append("line")
     .attr("x1", -0.5)
@@ -73,7 +73,7 @@ const cell = node.filter(d => d.depth === 2);
 
 cell.append("rect")
     .attr("fill", d => color(d.data[0]))
-    .attr("fill-opacity", (d, i) => d.Consumo / d.parent.Consumo)
+    .attr("fill-opacity", (d, i) => d.value / d.parent.value)
     .attr("width", d => d.x1 - d.x0 - 1)
     .attr("height", d => d.y1 - d.y0 - 1);
 

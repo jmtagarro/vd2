@@ -65,10 +65,8 @@ d3.dsv(";", "da_centros.csv")]).then(function(loadData){
         .duration(200)
         .style("opacity", 1)
       tooltip.html(
-        d.explicitOriginalTarget.__data__.properties.NAMEUNIT
-        + ": " + (count.get(d.explicitOriginalTarget.__data__.properties.NATCODE.slice(-5)) ?? 0))
-          .style("left", (event.pageX + 20) + "px")
-          .style("top", (event.pageY - 30) + "px")
+        this.__data__.properties.NAMEUNIT
+        + ": " + (count.get(this.__data__.properties.NATCODE.slice(-5)) ?? 0))
       
     })
     .on("mouseleave", function(d) {

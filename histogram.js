@@ -54,7 +54,10 @@ function update(nBin) {
     .duration(1000)
       .attr("x", 1)
       .attr("transform", function(d) { return `translate(${x(d.x0)}, ${y(d.length)})`})
-      .attr("width", function(d) { return x(d.x1) - x(d.x0) -1})
+      .attr("width", function(d) { 
+        let w = x(d.x1) - x(d.x0) - 1
+        return w > 0 ? w : 0;
+      })
       .attr("height", function(d) { return height - y(d.length); })
       .style("fill", "#69b3a2")
 

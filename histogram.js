@@ -59,7 +59,7 @@ function update(nBin) {
         return w > 0 ? w : 0;
       })
       .attr("height", function(d) { return height - y(d.length); })
-      .style("fill", "#69b3a2")
+      .style("fill", "#6BAED6")
 
 }
 
